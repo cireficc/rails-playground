@@ -10,10 +10,11 @@ Simply run the following commands in order:
 2. `sudo apt-get install curl` - installs the cURL utility that is used to send HTTP requests (like in the next command)
 3. `\curl -L https://get.rvm.io | bash -s stable --ruby` - downloads and installs RVM (Ruby Version Manager)
 4. `rvmsudo rvm get stable --autolibs=enable` - RVM updates itself to the most recent stable version
-5. `rvm --default use ruby-2.3.0` - tells RVM to use Ruby 2.3.0 (for Rails 5)
-6. `gem update --system` - updates **gem** (the Ruby package manager)
-7. `gem install rails --pre` - installs the most recent stable Rails version
-8. `rails -v` - checks the Rails version. It should be 5
+5. `rvm reload` - Reload RVM so it's using the latest version that was just installed
+6. `rvm --default use ruby-2.3.0` - tells RVM to use Ruby 2.3.0 (for Rails 5)
+7. `gem update --system` - updates **gem** (the Ruby package manager)
+8. `gem install rails --pre` - installs the most recent stable Rails version
+9. `rails -v` - checks the Rails version. It should be 5
 
 If all of the above worked and `rails -v` is giving the correct output, you can move on.
 
@@ -22,7 +23,8 @@ If all of the above worked and `rails -v` is giving the correct output, you can 
 This is a bit trickier, but nothing extremely difficult.
 
 1. `rails new my_app_name -d postgresql` - generates a new Rails application (folders, files, etc.) with the name *my_app_name*, using PostgreSQL database
-2. `rake db:create` - creates the PostgreSQL database
+2. `sudo service postgresql start` - Start PostgreSQL so that Rails can use it
+3. `rake db:create` - creates the PostgreSQL database
 
     Oh no, an error:
     
@@ -36,7 +38,7 @@ This is a bit trickier, but nothing extremely difficult.
     
     Rails is right, PostgreSQL should have its default encoding as UTF-8. ASCII makes no sense. Whatever.
     
-    To fix it, download [this script](https://gist.github.com/cireficc/1cf32a65f097e743a9c4) and execute it.
+    To fix it, download [this script](https://gist.github.com/cireficc/1cf32a65f097e743a9c4) and execute it (you may need to run `chmod 777` on it)
     The script will simply set the default encoding for the database template used by Rails to UTF-8 isntead of SQL_ASCII.
     You should see this output:
     
@@ -60,7 +62,7 @@ This is a bit trickier, but nothing extremely difficult.
     
     You should now see the database for your rails app: `my_app_name_development | ubuntu | UTF8 | C | C |`. Use `\q` to quit the console.
 
-3. Navigate to the app's Cloud9 URL, e.g. ` https://rails-playground-cireficc.c9users.io`.
+4. Navigate to the app's Cloud9 URL, e.g. ` https://rails-playground-cireficc.c9users.io`.
    - You should see a beautiful picture of happy people with a welcome message:
 
    **"Yay! You're on Rails!"**
